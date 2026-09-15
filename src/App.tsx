@@ -8,6 +8,7 @@ import ProgressBar from './components/progressBar'
 import Message from './components/message'
 import Graph from './components/graph'
 import ProfileCard from './components/profileCard'
+import SideBar from './components/sidebar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -43,22 +44,11 @@ function App() {
         </div>
 
         <div className="flex items-start flex-col gap-2">
-          <span className="font-bold text-md text-white">Profile Card</span>
-          <ProfileCard/>
+          <span className="font-bold text-md text-white">Side Bar</span>
+          <SideBar/>
         </div>
 
-        <li>Profile</li>
-        <li>Type</li>
-        <li>Location</li>
-        <li>Number</li>
-        <li>Position</li>
-
-        <ol className="text-white">new</ol>
-        <ol>list</ol>
-        <ol>with</ol>
-        <ol>ol</ol>
-        <ol></ol>
-        <div className=""></div>
+        
 
         
 
