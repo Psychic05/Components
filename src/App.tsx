@@ -7,6 +7,7 @@ import Graph from './components/graph'
 import ProfileCard from './components/profileCard'
 import SideBar from './components/sidebar'
 import MusicPlayer from './components/musicPlayer'
+import ProgressCard from './components/progressCard'
 
 import {Plus} from "lucide-react";
 import {ArrowDown} from "lucide-react";
@@ -16,6 +17,8 @@ function App() {
 
   return (
     <>
+      <ProgressCard/>
+
       <MusicPlayer/>
       
       <SideBar/>
