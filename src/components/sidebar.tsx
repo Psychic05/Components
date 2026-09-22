@@ -8,9 +8,22 @@ import { CodeXml } from "lucide-react";
 import { StickyNote } from "lucide-react";
 import { Circle } from "lucide-react";
 import { Ellipsis } from "lucide-react";
+import { useState } from "react";
 
 function SideBar() {
   
+  // 1. which items to display
+  // 2. define items (strings etc.)
+  // 3. .map method
+
+  const pageName = ["Overview", "Positions", "Branding", "Team Managment", "API Key"]
+  const pageIcon = [<LayoutGrid />, <StickyNote />, <PaintBucket />, <UsersRound />, <CodeXml />]
+  const pageNoti = [null, 8, "New", null, null]
+
+  const projectName = ["Blomberg", "Samsung", "Apple", "Amazon"]
+  const projectNumber = [4, 28, 28, 28]
+
+  const [activeTab, setActiveTab] = useState(null)
 
   return (
     <>
@@ -29,48 +42,27 @@ function SideBar() {
         </div>
 
         {/* Pages List */}
-        <ul className="space-y-2 p-0 m-0 justify">
-          <li className="flex items-center">
-            <div className="flex items-center">
-              <s className=""><LayoutGrid /></s>
-              <a className="block rounded p-3 text-white hover:bg-amber-950" href="">
-                Overview</a>
-              </div>
-          </li>
-            
-          <li className="flex items-center justify-between text-gray-500">
-              <div className="flex items-center">
-                <s className=""><StickyNote /></s>
-                <a className="block rounded p-3 hover:bg-amber-950" href="">
-                  Positions</a>
-              </div>
-              <span className="px-2 py-1 bg-blue-700 rounded-full text-sm text-white">8</span>
-          </li>
-
-          <li className="flex items-center justify-between text-gray-500">
-            <div className="flex items-center">
-              <s className=""><PaintBucket /></s>
-              <a className="block rounded p-3 hover:bg-amber-950" href="">
-                Branding</a>
-            </div>
-            <span className="px-2 py-1 bg-green-800 text-sm rounded-full text-green-200">New</span>
-          </li>
-
-          <li className="flex items-center text-gray-500">
-            <div className="flex items-center">
-              <s className=""><UsersRound /></s>
-              <a className="block rounded p-3 hover:bg-amber-950" href="">
-                Team Managment</a>
-            </div>
-          </li>
-          <li className="flex items-center text-gray-500">
-            <div className="flex items-center">
-              <s className=""><CodeXml /></s>
-              <a className="block rounded p-3 hover:bg-amber-950" href="">
-                API Key</a>
-            </div>
-          </li>
+        <ul className="relative flex flex-col gap-2 p-0 m-0">
+          <div className="absolute -left-8 w-1 bg-white h-8 rounded-r-full pointer-events-none [position-anchor:--active] top-[anchor(center)] -translate-y-1/2 transition-all transition-400 ease-out"/>
+          {pageName.map((tab,i) => {
+            return(
+              <li key={tab} onClick={() => setActiveTab(tab)} className={`h-10 transition-colors duration-700 ease-out flex relative justify-between items-center ${activeTab === tab ? "text-white [anchor-name:--active]" : "text-gray-500"}`}>
+                <div className="flex items-center">
+                  <span className="">{pageIcon[i]}</span>
+                    <a className="block rounded p-3" href="#">
+                    {tab}
+                    </a>
+                </div>
+                {pageNoti[i]&&(
+                <div className={`py-1 px-2 rounded-full ${typeof pageNoti[i] === "number" ? "bg-purple-400 text-white" : "bg-green-300 text-green-900"}`}>{pageNoti[i]}
+                </div>
+                )}
+              </li>
+            )
+          })}
         </ul>
+        
+        <div className="h-4"></div>
 
         {/* Projects Title */}
         <div className="flex justify-between pt-4">
@@ -82,50 +74,29 @@ function SideBar() {
         {/* Projects List */}
         <ul className="flex flex-col text-white space-y-6 text-lg items-start">
           
-          <li className="flex justify-between items-center">
-            <div className="flex gap-2 items-center">
-              <span className=""><Circle/></span>
-              <s className="">Bloomberg</s>
-            </div>
-            <s className="bg-gray-600 py-1 px-2.5 rounded-full text-xs font-bold">4</s>
-          </li>
+          {projectName.map((company, no) => {
 
-          <li className="flex justify-between items-center"> 
-            <div className="flex gap-2 items-center">
-              <span className=""><Circle/></span>
-              <s>Samsung</s>
-            </div>
-            <s className="bg-gray-600 py-1 px-2.5 rounded-full text-xs font-bold">28</s>
-          </li>
-
-          <li className="flex justify-between items-center"> 
-            <div className="flex gap-2 items-center">
-              <span className=""><Circle/></span>
-              <s>Apple</s>
-            </div>
-            <s className="bg-gray-600 py-1 px-2.5 rounded-full text-xs font-bold">28</s>
-          </li>
-
-          <li className="flex justify-between items-center"> 
-            <div className="flex gap-2 items-center">
-              <span className=""><Circle/></span>
-              <s>Amazon</s>
-            </div>
-            <s className="bg-gray-600 py-1 px-2.5 rounded-full text-xs font-bold">28</s>
-          </li>
-
-          
+              return(
+                <li className="flex justify-between w-full items-center">
+                  <div className="flex gap-2 items-center">
+                    <span className=""><Circle/></span>
+                    <span className="">{company}</span>
+                  </div>
+                  <span className="bg-gray-600 py-1 px-2.5 rounded-full text-xs font-bold">{projectNumber[no]}</span>
+                </li>
+              )
+          })}
 
           <button className="text-xs text-white p-2 font-bold bg-gray-800 rounded-lg">View All</button>
         </ul>
-
-        <div className="p-4"></div>
+          
+        <div className="h-4"></div>
 
         {/* Profile Bar */}
         <div className="bg-gray-800 rounded-full p-4 flex justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ">
             <img src="https://images.unsplash.com/photo-1654110455429-cf322b40a906?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="h-12 w-12 rounded-full" />
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start outline-white">
               <span className="text-white text-sm">
                 Nicolas Ermegla
               </span>
@@ -133,7 +104,7 @@ function SideBar() {
                 nicolas@steelmonk.co
               </span>
             </div>
-            <span className=""><Ellipsis size={20} /></span>
+            <span className="translate-x-2"><Ellipsis size={20} /></span>
           </div>
         </div>
         
